@@ -1,0 +1,3 @@
+## **Expliación :**
+
+> Vamos a realizar el software para dar un servicio de ventas de entradas de cines además de *cartelera*, *salas*...
