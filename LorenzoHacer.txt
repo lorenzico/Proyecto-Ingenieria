@@ -1,0 +1,5 @@
+07/04/2025 
+|
+-> Hacer LecturaArchivo para cuando se quiere consultar la cartelera, por parte del Usuario o Dependiente.
+| 
+-> Hacer LecturaArchivo para el Login y Registro y EscrituraArchivo para el registro.
