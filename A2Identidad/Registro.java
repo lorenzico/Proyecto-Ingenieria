@@ -1,6 +1,8 @@
 package A2Identidad;
 import java.util.Scanner;
 
+import A6EscrituraLectura.EscrituraBuffer_Autenticacion;
+
 public class Registro {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -28,23 +30,22 @@ public class Registro {
             default:
                 System.out.println("Opción no válida.");
         }
+
     }
+
+
+
     
     private static void registrarUsuarioNormal(Scanner scanner) {
         System.out.println("\nRegistro de usuario normal");
-        System.out.print("Nombre completo: ");
-        String nombre = scanner.nextLine();
-        
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-        
-        System.out.print("Contraseña: ");
-        String contrasena = scanner.nextLine();
-        
-        // Aquí iría la lógica para guardar el usuario
-        System.out.println("\nRegistro exitoso (simulado)");
-        System.out.println("Bienvenido " + nombre + ", tu cuenta de usuario normal ha sido creada.");
+
+        EscrituraBuffer_Autenticacion objetoA = new EscrituraBuffer_Autenticacion();
+        objetoA.escrituraAutenticacion();
+
+        System.out.println("\nRegistro exitoso ");
     }
+
+
     
     private static void registrarDependiente(Scanner scanner) {
         System.out.println("\nRegistro de dependiente");
@@ -56,20 +57,16 @@ public class Registro {
             System.out.println("Contraseña de autorización incorrecta.");
             return;
         }
+
         
-        System.out.print("Nombre completo: ");
-        String nombre = scanner.nextLine();
-        
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-        
-        System.out.print("Contraseña: ");
-        String contrasena = scanner.nextLine();
+        EscrituraBuffer_Autenticacion objetoA = new EscrituraBuffer_Autenticacion();
+        objetoA.escrituraAutenticacion();
         
         System.out.println("\nRegistro exitoso (simulado)");
-        System.out.println("Bienvenido " + nombre + ", tu cuenta de dependiente ha sido creada.");
     }
     
+
+
     private static void registrarAdministrador(Scanner scanner) {
         System.out.println("\nRegistro de administrador");
         System.out.print("Ingrese la contraseña maestra: ");
@@ -81,16 +78,10 @@ public class Registro {
             return;
         }
         
-        System.out.print("Nombre completo: ");
-        String nombre = scanner.nextLine();
         
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-        
-        System.out.print("Contraseña: ");
-        String contrasena = scanner.nextLine();
+        EscrituraBuffer_Autenticacion objetoA = new EscrituraBuffer_Autenticacion();
+        objetoA.escrituraAutenticacion();
         
         System.out.println("\nRegistro exitoso (simulado)");
-        System.out.println("Bienvenido " + nombre + ", tu cuenta de administrador ha sido creada.");
     }
 }

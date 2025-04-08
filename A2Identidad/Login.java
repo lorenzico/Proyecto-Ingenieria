@@ -15,6 +15,6 @@ public class Login {
         
         // Aquí iría la lógica para verificar las credenciales
         System.out.println("\nInicio de sesión exitoso (simulado)");
-        System.out.println("Bienvenido, " + email);
+
     }
 }

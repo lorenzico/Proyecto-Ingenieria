@@ -1,9 +1,10 @@
+package A6EscrituraLectura;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class EscrituraBuffer {
+public class EscrituraBuffer_Cartelera {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
@@ -32,7 +33,7 @@ public class EscrituraBuffer {
         String director_pelicula = scanner.nextLine();
 
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/Autenticacion.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/Cartelera.txt", true))) {
             writer.write(nombre_pelicula);
             writer.write(";");
 
