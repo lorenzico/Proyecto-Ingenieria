@@ -18,6 +18,8 @@ public class LecturaArchivo_Cartelera {
                 for (int i = 0; i < partes.length; i++){
                     
                     if (i == 0) {
+                        System.out.println("-----------------------------------------------------");
+
                         System.out.println("PELICULA: " + numeroLinea);
                         System.out.println( "NOMBRE PELICULA: " + partes[0]);
                     } else if ( i == 1) {
@@ -30,7 +32,6 @@ public class LecturaArchivo_Cartelera {
 
                 }
 
-                System.out.println("-----------------------------------------------------");
 
 
 
@@ -39,5 +40,8 @@ public class LecturaArchivo_Cartelera {
             System.out.println("Error al leer el archivo.");
             e.printStackTrace();
         }
+
+        System.out.println("-----------------------------------------------------");
+
     }
 }

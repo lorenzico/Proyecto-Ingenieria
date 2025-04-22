@@ -1,9 +1,36 @@
 package A5Menu_Admin;
-import A6EscrituraLectura.EscrituraBuffer_Autenticacion;
+import java.util.Scanner;
 
 public class Menu_Admin {
-    
-    public void main() {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("\n=== MENÚ DEL ADMINISTRADOR ===");
+            System.out.println("1. Actualización Cartelera");
+            System.out.println("2. Baneo Cliente");
+            System.out.print("Seleccione una opción: ");
+
+
+            
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
+
+            switch (opcion) {
+                case 1:
+                    A6EscrituraLectura.EscrituraBuffer_Cartelera.main(null);
+                    break;
+                case 2:
+                    A6EscrituraLectura.BaneoUsuarios.main(null); 
+                    break;
+
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+        
+
+
+        
     }
 }

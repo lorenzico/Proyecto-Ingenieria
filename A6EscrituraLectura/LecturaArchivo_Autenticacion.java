@@ -28,9 +28,9 @@ public class LecturaArchivo_Autenticacion {
 
                 System.out.println("-----------------------------------------------------");
 
-
-
             }
+
+            
         } catch (IOException e) {
             System.out.println("Error al leer el archivo.");
             e.printStackTrace();
