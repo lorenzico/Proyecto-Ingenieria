@@ -9,6 +9,7 @@ public class Menu_Admin {
             System.out.println("\n=== MENÚ DEL ADMINISTRADOR ===");
             System.out.println("1. Actualización Cartelera");
             System.out.println("2. Baneo Cliente");
+            System.out.println("3. Creación Salas");
             System.out.print("Seleccione una opción: ");
 
 
@@ -23,6 +24,15 @@ public class Menu_Admin {
                 case 2:
                     A6EscrituraLectura.BaneoUsuarios.main(null); 
                     break;
+
+                case 3:
+                    A6EscrituraLectura.CrearSala.main(null); 
+                break;
+
+                case 4;
+                    A6EscrituraLectura.MirarSala.main(null); 
+
+
 
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");

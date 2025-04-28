@@ -13,7 +13,7 @@ public class Menu_Identificacion {
             System.out.print("Seleccione una opción: ");
             
             int opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
+            scanner.nextLine(); 
             
             switch (opcion) {
                 case 1:
@@ -25,6 +25,7 @@ public class Menu_Identificacion {
                 case 3:
                     System.out.println("Saliendo del sistema...");
                     System.exit(0);
+                    
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");
             }

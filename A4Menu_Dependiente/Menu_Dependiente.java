@@ -31,9 +31,6 @@ public class Menu_Dependiente {
                         System.out.println("Opción no válida. Intente nuevamente.");
                 }
             }
-
-
-        
     }
 
 
