@@ -1,96 +1,154 @@
 package A6EscrituraLectura;
 
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 
 public class CrearSala {
+    private static JTextArea salaDisplay;
+    private static int[][] salaArray;
     
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Dime el número de la sala: ");
-        int num_sala = scanner.nextInt();
-        String limp1 = scanner.nextLine();
-
-        System.out.println("Dime cuántas filas y columnas tiene la sala:");
-        System.out.println("Fila: ");
-        int num_filas = scanner.nextInt();
-        String limp5 = scanner.nextLine();
-
-        System.out.println("Columna: ");
-        int num_colum = scanner.nextInt();
-        String limp2 = scanner.nextLine();
-
-        int[][] sala_array = new int[num_filas][num_colum];
-
-        for (int i = 0; i < num_filas; i++) {
-            for (int j = 0; j < num_colum; j++) {
-                sala_array[i][j] = 1;
+        JFrame frame = new JFrame("Crear Nueva Sala");
+        frame.setSize(600, 500);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        
+        // Panel de configuración
+        JPanel configPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        
+        JLabel numLabel = new JLabel("Número de Sala:");
+        JTextField numField = new JTextField();
+        
+        JLabel filasLabel = new JLabel("Filas:");
+        JSpinner filasSpinner = new JSpinner(new SpinnerNumberModel(5, 1, 20, 1));
+        
+        JLabel columnasLabel = new JLabel("Columnas:");
+        JSpinner columnasSpinner = new JSpinner(new SpinnerNumberModel(8, 1, 20, 1));
+        
+        configPanel.add(numLabel);
+        configPanel.add(numField);
+        configPanel.add(filasLabel);
+        configPanel.add(filasSpinner);
+        configPanel.add(columnasLabel);
+        configPanel.add(columnasSpinner);
+        
+        // Panel de visualización de sala
+        salaDisplay = new JTextArea();
+        salaDisplay.setEditable(false);
+        salaDisplay.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        JScrollPane scrollPane = new JScrollPane(salaDisplay);
+        
+        // Panel de controles
+        JPanel controlPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+        JButton initBtn = new JButton("Inicializar Sala");
+        JButton toggleBtn = new JButton("Cambiar Asiento");
+        JButton saveBtn = new JButton("Guardar Sala");
+        
+        controlPanel.add(initBtn);
+        controlPanel.add(toggleBtn);
+        controlPanel.add(saveBtn);
+        
+        // Listeners
+        initBtn.addActionListener(e -> {
+            int numSala;
+            try {
+                numSala = Integer.parseInt(numField.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Número de sala inválido");
+                return;
             }
-        }
-
-        while (true) {
-            System.out.println("¿Hay algún asiento que no esté disponible? SI/NO: ");
-            String disp_asiento = scanner.nextLine();
             
-            switch (disp_asiento) {
-                case "Si":
-                case "SI":
-                case "si":
-                    
-                    System.out.println("Dime la localización que no está disponible: ");
-
-                    System.out.println("Fila: ");
-                    int camb_filas = scanner.nextInt();
-                    String limp3 = scanner.nextLine();
-
-                    System.out.println("Columna: ");
-                    int camb_colum = scanner.nextInt();
-                    String limp4 = scanner.nextLine();
-
-                    if (camb_filas >= 0 && camb_filas < num_filas && camb_colum >= 0 && camb_colum < num_colum) {
-                        sala_array[camb_filas][camb_colum] = 0;
-                    } else {
-                        System.out.println("Posición inválida. Inténtalo de nuevo.");
-                    }
-
-                    break;
-                    
-                case "No":
-                case "NO":
-                case "no":
-                    // Guardar la sala en archivo
-                    try {
-                        PrintWriter pw = new PrintWriter(new FileWriter("sala_" + num_sala + ".txt"));
-                        for (int i = 0; i < sala_array.length; i++) {
-                            for (int j = 0; j < sala_array[i].length; j++) {
-                                pw.print(sala_array[i][j] + " ");
-                            }
-                            pw.println();
-                        }
-                        pw.close();
-                        System.out.println("Sala guardada exitosamente.");
-                    } catch (IOException e) {
-                        System.out.println("Error al guardar la sala: " + e.getMessage());
-                    }
-
-                    A5Menu_Admin.Menu_Admin.main(args); // Ir al menú
-                    return; // salir del programa después de guardar
-
-                default:
-                    System.out.println("Opción no válida. Intente nuevamente.");
-            }
-
-            // Mostrar el estado actual de la sala
-            for (int i = 0; i < sala_array.length; i++) {
-                for (int j = 0; j < sala_array[i].length; j++) {
-                    System.out.print(sala_array[i][j] + " ");
+            int filas = (int) filasSpinner.getValue();
+            int columnas = (int) columnasSpinner.getValue();
+            
+            salaArray = new int[filas][columnas];
+            for (int i = 0; i < filas; i++) {
+                for (int j = 0; j < columnas; j++) {
+                    salaArray[i][j] = 1; // 1 = disponible
                 }
-                System.out.println();
             }
+            updateSalaDisplay();
+        });
+        
+        toggleBtn.addActionListener(e -> {
+            if (salaArray == null) {
+                JOptionPane.showMessageDialog(frame, "Primero inicialice la sala");
+                return;
+            }
+            
+            String filaStr = JOptionPane.showInputDialog(frame, "Ingrese fila (1-" + salaArray.length + "):");
+            String colStr = JOptionPane.showInputDialog(frame, "Ingrese columna (1-" + salaArray[0].length + "):");
+            
+            try {
+                int fila = Integer.parseInt(filaStr) - 1;
+                int col = Integer.parseInt(colStr) - 1;
+                
+                if (fila >= 0 && fila < salaArray.length && col >= 0 && col < salaArray[0].length) {
+                    salaArray[fila][col] = (salaArray[fila][col] == 1) ? 0 : 1;
+                    updateSalaDisplay();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Posición inválida");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Ingrese números válidos");
+            }
+        });
+        
+        saveBtn.addActionListener(e -> {
+            if (salaArray == null) {
+                JOptionPane.showMessageDialog(frame, "Primero inicialice la sala");
+                return;
+            }
+            
+            try {
+                int numSala = Integer.parseInt(numField.getText());
+                PrintWriter pw = new PrintWriter(new FileWriter("A7Salas/Sala_" + numSala + ".txt"));
+                
+                for (int[] fila : salaArray) {
+                    for (int asiento : fila) {
+                        pw.print(asiento + " ");
+                    }
+                    pw.println();
+                }
+                pw.close();
+                
+                JOptionPane.showMessageDialog(frame, "Sala guardada exitosamente");
+                frame.dispose();
+            } catch (IOException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Error al guardar: " + ex.getMessage());
+            }
+        });
+        
+        mainPanel.add(configPanel, BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.add(controlPanel, BorderLayout.SOUTH);
+        
+        frame.add(mainPanel);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    private static void updateSalaDisplay() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("   ");
+        for (int j = 0; j < salaArray[0].length; j++) {
+            sb.append(String.format("%-3d", j + 1));
         }
+        sb.append("\n");
+        
+        for (int i = 0; i < salaArray.length; i++) {
+            sb.append(String.format("%-3d", i + 1));
+            for (int j = 0; j < salaArray[i].length; j++) {
+                sb.append(String.format("%-3d", salaArray[i][j]));
+            }
+            sb.append("\n");
+        }
+        
+        sb.append("\nLeyenda:\n1 - Disponible\n0 - Ocupado");
+        salaDisplay.setText(sb.toString());
     }
 }

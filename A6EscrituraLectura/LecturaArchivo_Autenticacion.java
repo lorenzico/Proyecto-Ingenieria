@@ -1,39 +1,35 @@
 package A6EscrituraLectura;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 
 public class LecturaArchivo_Autenticacion {
     public static void main(String[] args) {
+        JFrame frame = new JFrame("Lista de Usuarios Registrados");
+        frame.setSize(500, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        
         try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/Autenticacion.txt"))) {
             String linea;
-            int numeroLinea = 0;
-
+            int count = 1;
             while ((linea = reader.readLine()) != null) {
-                numeroLinea ++;
-
                 String[] partes = linea.split(";");
-
-
-                for (int i = 0; i < partes.length; i++){
-                    
-                    if (i == 0) {
-                        System.out.println("USUARIO: " + numeroLinea);
-                        System.out.println( "EMAIL: " + partes[0]);
-                    } else if ( i == 1) {
-                        System.out.println( "CCONTRASEÑA: " + partes[1]);
-                    } 
-
-                }
-
-                System.out.println("-----------------------------------------------------");
-
+                textArea.append("USUARIO " + count + "\n");
+                textArea.append("Email: " + (partes.length > 0 ? partes[0] : "") + "\n");
+                textArea.append("----------------------------------------\n");
+                count++;
             }
-
-            
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo.");
-            e.printStackTrace();
+            textArea.append("Error al leer el archivo: " + e.getMessage());
         }
+        
+        frame.add(scrollPane);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

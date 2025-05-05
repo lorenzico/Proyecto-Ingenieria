@@ -1,47 +1,42 @@
 package A6EscrituraLectura;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 
 public class LecturaArchivo_Cartelera {
     public static void main(String[] args) {
+        JFrame frame = new JFrame("Cartelera Actual");
+        frame.setSize(700, 500);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        
         try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/Cartelera.txt"))) {
             String linea;
-            int numeroLinea = 0;
-
+            int count = 1;
             while ((linea = reader.readLine()) != null) {
-                numeroLinea ++;
-
                 String[] partes = linea.split(";");
-
-
-                for (int i = 0; i < partes.length; i++){
-                    
-                    if (i == 0) {
-                        System.out.println("-----------------------------------------------------");
-
-                        System.out.println("PELICULA: " + numeroLinea);
-                        System.out.println( "NOMBRE PELICULA: " + partes[0]);
-                    } else if ( i == 1) {
-                        System.out.println( "FECHA DE LANZAMIENTO: " + partes[1]);
-                    } else if (i == 2) {
-                        System.out.println( "RECAUDACIÓN: " + partes[2]);
-                    } else {
-                        System.out.println( "SINOPSIS: " + partes[3]);
-                    }
-
-                }
-
-
-
-
+                textArea.append("----------------------------------------\n");
+                textArea.append("PELÍCULA " + count + "\n");
+                textArea.append("Nombre: " + (partes.length > 0 ? partes[0] : "") + "\n");
+                textArea.append("Sala: " + (partes.length > 1 ? partes[1] : "") + "\n");
+                textArea.append("Día: " + (partes.length > 2 ? partes[2] : "") + "\n");
+                textArea.append("Hora: " + (partes.length > 3 ? partes[3] : "") + "\n");
+                textArea.append("Año: " + (partes.length > 4 ? partes[4] : "") + "\n");
+                textArea.append("Director: " + (partes.length > 5 ? partes[5] : "") + "\n");
+                textArea.append("Recaudación: " + (partes.length > 6 ? partes[6] : "") + "\n");
+                textArea.append("Sinopsis: " + (partes.length > 7 ? partes[7] : "") + "\n");
+                count++;
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo.");
-            e.printStackTrace();
+            textArea.append("Error al leer el archivo: " + e.getMessage());
         }
-
-        System.out.println("-----------------------------------------------------");
-
+        
+        frame.add(scrollPane);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

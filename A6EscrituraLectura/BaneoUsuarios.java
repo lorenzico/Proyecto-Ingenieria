@@ -1,82 +1,115 @@
 package A6EscrituraLectura;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BaneoUsuarios {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        JFrame frame = new JFrame("Baneo de Usuarios");
+        frame.setSize(600, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        // 1. Mostrar todos los usuarios
-        System.out.println("\n=== LISTA DE USUARIOS ===");
-        List<String> lineas = mostrarUsuarios("A0Ficheros/Autenticacion.txt");
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
-        if (lineas.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
-            return;
-        }
-
-        // 2. Pedir email a eliminar
-        System.out.print("\n Ingresa el email / nombre del usuario a banear: ");
-        String emailABanear = scanner.nextLine().trim();
-
-        // 3. Eliminar la línea y guardar cambios
-        eliminarUsuarioPorEmail("A0Ficheros/Autenticacion.txt", emailABanear, lineas);
-    }
-
-    // Muestra usuarios y devuelve todas las líneas
-    private static List<String> mostrarUsuarios(String rutaArchivo) {
-        List<String> lineas = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
-            String linea;
-            int numeroLinea = 0;
-            while ((linea = reader.readLine()) != null) {
-                lineas.add(linea);
-                numeroLinea++;
-                String[] partes = linea.split(";");
-                if (partes.length > 0) {
-                    System.out.println("USUARIO " + numeroLinea + ": " + partes[0]);
+        // Panel de lista de usuarios
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        JList<String> userList = new JList<>(listModel);
+        JScrollPane scrollPane = new JScrollPane(userList);
+        
+        // Panel de controles
+        JPanel controlPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JButton refreshBtn = new JButton("Actualizar Lista");
+        JButton banBtn = new JButton("Banear Seleccionado");
+        banBtn.setEnabled(false);
+        
+        controlPanel.add(refreshBtn);
+        controlPanel.add(banBtn);
+        
+        // Cargar usuarios al iniciar
+        loadUsers(listModel, "A0Ficheros/Autenticacion.txt");
+        
+        // Listeners
+        userList.addListSelectionListener(e -> {
+            banBtn.setEnabled(userList.getSelectedIndex() != -1);
+        });
+        
+        refreshBtn.addActionListener(e -> {
+            loadUsers(listModel, "A0Ficheros/Autenticacion.txt");
+        });
+        
+        banBtn.addActionListener(e -> {
+            String selected = userList.getSelectedValue();
+            if (selected != null) {
+                String email = selected.split(" - ")[0];
+                int confirm = JOptionPane.showConfirmDialog(frame, 
+                    "¿Está seguro que desea banear a: " + email + "?",
+                    "Confirmar Baneo",
+                    JOptionPane.YES_NO_OPTION);
+                
+                if (confirm == JOptionPane.YES_OPTION) {
+                    banUser(email, "A0Ficheros/Autenticacion.txt");
+                    loadUsers(listModel, "A0Ficheros/Autenticacion.txt");
                 }
-                System.out.println("-----------------------------------------------------");
+            }
+        });
+        
+        mainPanel.add(new JLabel("Lista de Usuarios:"), BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.add(controlPanel, BorderLayout.SOUTH);
+        
+        frame.add(mainPanel);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    private static void loadUsers(DefaultListModel<String> model, String filePath) {
+        model.clear();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int count = 1;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length > 0) {
+                    model.addElement(parts[0] + " - Usuario " + count);
+                    count++;
+                }
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo.");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al leer usuarios: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return lineas;
     }
-
-    // Elimina un usuario por email
-    private static void eliminarUsuarioPorEmail(String rutaArchivo, String emailABanear, List<String> lineas) {
-        List<String> lineasActualizadas = new ArrayList<>();
-        boolean encontrado = false;
-
-        for (String linea : lineas) {
-            String[] partes = linea.split(";");
-            if (partes.length > 0 && !partes[0].equalsIgnoreCase(emailABanear)) {
-                lineasActualizadas.add(linea);
-            } else if (partes.length > 0 && partes[0].equalsIgnoreCase(emailABanear)) {
-                encontrado = true;
+    
+    private static void banUser(String email, String filePath) {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.startsWith(email + ";")) {
+                    lines.add(line);
+                }
             }
-        }
-
-        if (!encontrado) {
-            System.out.println(" No se encontró el email / nombre: " + emailABanear);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer archivo: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Reescribir el archivo
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
-            for (String linea : lineasActualizadas) {
-                writer.write(linea);
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
                 writer.newLine();
             }
-            System.out.println(" Usuario con email / nombre '" + emailABanear + "' eliminado correctamente.");
+            JOptionPane.showMessageDialog(null, "Usuario baneado exitosamente");
         } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo.");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al guardar cambios: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
