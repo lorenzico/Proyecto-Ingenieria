@@ -2,6 +2,10 @@ package A6EscrituraLectura;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class EscrituraBuffer_Cartelera {
@@ -12,8 +16,22 @@ public class EscrituraBuffer_Cartelera {
         System.out.print("Si / No: ");
         String limpiar = scanner.nextLine();
 
+        Path archivoOriginal = Paths.get("Cartelera.txt");
+        Path archivoNuevo = Paths.get("Cartelera2.txt");
+
+
+
 
         if (limpiar.equalsIgnoreCase("Si")) {
+
+            try {
+                // Copia el archivo
+                Files.copy(archivoOriginal, archivoNuevo, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Archivo duplicado con éxito.");
+            } catch (IOException e) {
+                System.err.println("Error al duplicar el archivo: " + e.getMessage());
+            }
+
             try (FileWriter fw = new FileWriter("A0Ficheros/Cartelera.txt", false)) {
                 fw.write(""); // Limpia el archivo
                 System.out.println(" Cartelera borrada. Comienza una nueva.");
@@ -27,6 +45,17 @@ public class EscrituraBuffer_Cartelera {
         System.out.print("Ingresa el nombre: ");
         String nombre_pelicula = scanner.nextLine();
 
+        System.out.println("\n=== Numero de Sala ===");
+        System.out.print("Ingresa el Numero de la Sala donde se proyecta: ");
+        String numero_sala = scanner.nextLine();
+
+        System.out.println("\n=== Día de Proyección ===");
+        System.out.print("Ingresa el día de la proyección: ");
+        String dia_proyeccion = scanner.nextLine();
+
+        System.out.println("\n=== Horas de Proyección ===");
+        System.out.print("Ingresa las horas de proyección: ");
+        String hora_proyeccion = scanner.nextLine();
 
         System.out.println("\n=== Año de Salida ===");
         System.out.print("Ingrese el año que salió: ");
@@ -50,6 +79,15 @@ public class EscrituraBuffer_Cartelera {
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/Cartelera.txt", true))) {
             writer.write(nombre_pelicula);
+            writer.write(";");
+
+            writer.write(numero_sala);
+            writer.write(";");
+
+            writer.write(dia_proyeccion);
+            writer.write(";");
+
+            writer.write(hora_proyeccion);
             writer.write(";");
 
             writer.write(año_pelicula);

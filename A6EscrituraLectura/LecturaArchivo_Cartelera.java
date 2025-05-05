@@ -22,12 +22,15 @@ public class LecturaArchivo_Cartelera {
 
                         System.out.println("PELICULA: " + numeroLinea);
                         System.out.println( "NOMBRE PELICULA: " + partes[0]);
-                    } else if ( i == 1) {
-                        System.out.println( "FECHA DE LANZAMIENTO: " + partes[1]);
-                    } else if (i == 2) {
-                        System.out.println( "RECAUDACIÓN: " + partes[2]);
-                    } else {
-                        System.out.println( "SINOPSIS: " + partes[3]);
+                        System.out.println( "NUMERO SALA: " + partes[1]);
+                        System.out.println( "DÍA DE PROYECCIÓN: " + partes[2]);
+                        System.out.println( "HORA DE PROYECCIÓN: " + partes[3]);
+                        System.out.println( "FECHA DE LANZAMIENTO: " + partes[4]);
+                        System.out.println( "DIRECTOR: " + partes[5]);
+
+                        System.out.println( "RECAUDACIÓN: " + partes[6]);
+
+                        System.out.println( "SINOPSIS: " + partes[7]);
                     }
 
                 }

@@ -12,6 +12,8 @@ public class Menu_Dependiente {
                 System.out.println("\n=== MENÚ DEL DEPENDIENTE ===");
                 System.out.println("1. Reserva de Entradas");
                 System.out.println("2. Consulta de Cartelera");
+                System.out.println("3. Salir");
+
                 System.out.print("Seleccione una opción: ");
     
                 int opcion = scanner.nextInt();
@@ -25,8 +27,7 @@ public class Menu_Dependiente {
                         A6EscrituraLectura.LecturaArchivo_Cartelera.main(null); 
                         break;
                     case 3:
-                        System.out.println("Saliendo del sistema...");
-                        System.exit(0);
+                        A1Menu.Menu_Identificacion.main(null);
                     default:
                         System.out.println("Opción no válida. Intente nuevamente.");
                 }

@@ -64,7 +64,7 @@ public class CrearSala {
                 case "no":
                     // Guardar la sala en archivo
                     try {
-                        PrintWriter pw = new PrintWriter(new FileWriter("sala_" + num_sala + ".txt"));
+                        PrintWriter pw = new PrintWriter(new FileWriter("A7Salas/Sala_" + num_sala + ".txt"));
                         for (int i = 0; i < sala_array.length; i++) {
                             for (int j = 0; j < sala_array[i].length; j++) {
                                 pw.print(sala_array[i][j] + " ");
@@ -78,7 +78,7 @@ public class CrearSala {
                     }
 
                     A5Menu_Admin.Menu_Admin.main(args); // Ir al menú
-                    return; // salir del programa después de guardar
+                     // salir del programa después de guardar
 
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");

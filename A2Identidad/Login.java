@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Login {
-    public static void main(String[] args) {
+
+    public static String email;
+
+    public static String main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n=== INICIO DE SESIÓN ===");
@@ -16,7 +20,7 @@ public class Login {
         String salto = scanner.nextLine();
 
         System.out.print("Ingrese su email: ");
-        String email = scanner.nextLine();
+         email = scanner.nextLine();
 
         System.out.print("Ingrese su contraseña: ");
         String contrasena = scanner.nextLine();
@@ -35,6 +39,8 @@ public class Login {
         } else {
             System.out.println("\n Credenciales incorrectas o usuario no registrado.");
         }
+
+        return email;
     }
 
     

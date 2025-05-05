@@ -31,6 +31,41 @@ public class EscrituraBuffer_Autenticacion{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        System.out.println("\n=== Información del Perfil ===");
+
+        System.out.print("Genéro (M/F): ");
+        String genero = scanner.nextLine();
+
+        System.out.print("Dime tu edad: ");
+        String edad = scanner.nextLine();
+
+        System.out.print("Formato de pago: ");
+        String pago = scanner.nextLine();
+
+        System.out.print("Cual es tu situacion (Estudiante/Trabajador/Parado): ");
+        String tippo = scanner.nextLine();
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A8Usuarios/" + email_user, true))) {
+            writer.write(genero);
+            writer.write(";");
+
+            writer.write(edad);
+            writer.write(";");
+
+            writer.write(pago);
+            writer.write(";");
+
+            writer.write(tippo);
+            writer.write(";");
+            
+            writer.newLine(); // Nueva línea
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
