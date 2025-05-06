@@ -2,7 +2,6 @@ package A6EscrituraLectura;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List; // Explicit import for List interface
@@ -80,7 +79,7 @@ public class Reserva {
             }
         });
         
-        reserveBtn.addActionListener(e -> {
+        reserveBtn.addActionListener(event -> {
             int fila = (int) rowSpinner.getValue();
             int columna = (int) colSpinner.getValue();
             

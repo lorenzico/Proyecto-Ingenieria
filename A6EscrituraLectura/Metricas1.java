@@ -2,9 +2,8 @@ package A6EscrituraLectura;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.io.*;
 import java.nio.file.*;
-import java.io.IOException;
 
 public class Metricas1 {
     public static void main(String[] args) {
@@ -20,7 +19,7 @@ public class Metricas1 {
         JScrollPane scrollPane = new JScrollPane(statusArea);
         
         JButton copyBtn = new JButton("Copiar Salas a A9Descargas");
-        copyBtn.addActionListener(e -> {
+        copyBtn.addActionListener(event -> {
             Path origenDir = Paths.get("A7Salas");
             Path destinoDir = Paths.get("A9Descargas");
             

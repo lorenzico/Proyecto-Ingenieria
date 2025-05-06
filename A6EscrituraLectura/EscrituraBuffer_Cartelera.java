@@ -2,7 +2,6 @@ package A6EscrituraLectura;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.nio.file.*;
 
@@ -71,7 +70,7 @@ public class EscrituraBuffer_Cartelera {
         JButton saveBtn = new JButton("Guardar Película");
         saveBtn.setFont(new Font("Arial", Font.BOLD, 14));
         
-        saveBtn.addActionListener(e -> {
+        saveBtn.addActionListener(event -> {
             if (cleanCheck.isSelected()) {
                 try {
                     Files.copy(Paths.get("Cartelera.txt"), Paths.get("Cartelera2.txt"), 

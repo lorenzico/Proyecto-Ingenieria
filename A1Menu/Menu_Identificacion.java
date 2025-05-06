@@ -46,7 +46,7 @@ public class Menu_Identificacion {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                A2Identidad.Registro.main(args);
+                A2Identidad.RegistroUnico.main(args); // Call RegistroUnico instead of Registro
                 frame.dispose(); // Cierra la ventana actual
             }
         });

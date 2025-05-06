@@ -9,3 +9,7 @@ marco;marco;
 javier;javier;
 pepito;pepito;
 arturo;arturo;
+pepe;pepe;
+asdasd;asdsad;
+Pepa;pepe@gmail.com;P@blo152005;Masculino;25;
+A;arturito@gmail.com;@RTURO1234fdsfdsf;Otros;20;

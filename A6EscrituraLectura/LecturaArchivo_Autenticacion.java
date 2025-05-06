@@ -1,7 +1,6 @@
 package A6EscrituraLectura;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 
 public class LecturaArchivo_Autenticacion {

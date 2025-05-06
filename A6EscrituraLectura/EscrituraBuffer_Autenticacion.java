@@ -2,7 +2,6 @@ package A6EscrituraLectura;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 
 public class EscrituraBuffer_Autenticacion {
@@ -59,7 +58,7 @@ public class EscrituraBuffer_Autenticacion {
         JButton registerBtn = new JButton("Registrarse");
         registerBtn.setFont(new Font("Arial", Font.BOLD, 14));
         
-        registerBtn.addActionListener(e -> {
+        registerBtn.addActionListener(event -> {
             String email = emailField.getText();
             String password = new String(passField.getPassword());
             String gender = genderField.getText();

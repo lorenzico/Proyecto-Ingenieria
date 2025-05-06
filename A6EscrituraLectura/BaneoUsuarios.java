@@ -2,8 +2,6 @@ package A6EscrituraLectura;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +33,11 @@ public class BaneoUsuarios {
         loadUsers(listModel, "A0Ficheros/Autenticacion.txt");
         
         // Listeners
-        userList.addListSelectionListener(e -> {
-            banBtn.setEnabled(userList.getSelectedIndex() != -1);
-        });
+        userList.addListSelectionListener(e -> banBtn.setEnabled(userList.getSelectedIndex() != -1));
         
-        refreshBtn.addActionListener(e -> {
-            loadUsers(listModel, "A0Ficheros/Autenticacion.txt");
-        });
+        refreshBtn.addActionListener(event -> loadUsers(listModel, "A0Ficheros/Autenticacion.txt"));
         
-        banBtn.addActionListener(e -> {
+        banBtn.addActionListener(event -> {
             String selected = userList.getSelectedValue();
             if (selected != null) {
                 String email = selected.split(" - ")[0];

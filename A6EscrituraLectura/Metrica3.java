@@ -15,7 +15,7 @@ public class Metrica3 {
         JScrollPane scrollPane = new JScrollPane(textArea);
         
         JButton generateBtn = new JButton("Generar Reporte");
-        generateBtn.addActionListener(e -> {
+        generateBtn.addActionListener(event -> {
             textArea.setText("");
             generateReport(textArea);
         });

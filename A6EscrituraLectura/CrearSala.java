@@ -2,7 +2,6 @@ package A6EscrituraLectura;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 
 public class CrearSala {
@@ -53,7 +52,7 @@ public class CrearSala {
         controlPanel.add(saveBtn);
         
         // Listeners
-        initBtn.addActionListener(e -> {
+        initBtn.addActionListener(event -> {
             int numSala;
             try {
                 numSala = Integer.parseInt(numField.getText());
@@ -74,7 +73,7 @@ public class CrearSala {
             updateSalaDisplay();
         });
         
-        toggleBtn.addActionListener(e -> {
+        toggleBtn.addActionListener(event -> {
             if (salaArray == null) {
                 JOptionPane.showMessageDialog(frame, "Primero inicialice la sala");
                 return;
@@ -98,7 +97,7 @@ public class CrearSala {
             }
         });
         
-        saveBtn.addActionListener(e -> {
+        saveBtn.addActionListener(event -> {
             if (salaArray == null) {
                 JOptionPane.showMessageDialog(frame, "Primero inicialice la sala");
                 return;
