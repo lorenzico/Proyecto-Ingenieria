@@ -23,7 +23,7 @@ public class BaneoUsuarios {
         String emailABanear = scanner.nextLine().trim();
 
         // 3. Eliminar la línea y guardar cambios
-        eliminarUsuarioPorEmail("A0Ficheros/Autenticacion.txt", emailABanear, lineas);
+        eliminarUsuarioPorEmail("A0Ficheros/AutenticacionUser.txt", emailABanear, lineas);
     }
 
     // Muestra usuarios y devuelve todas las líneas

@@ -21,7 +21,7 @@ public class Menu_Dependiente {
     
                 switch (opcion) {
                     case 1:
-                    A6EscrituraLectura.ReservaVer.main(null);
+                    A6EscrituraLectura.ReservaVer1.main(null);
                         break;
                     case 2:
                         A6EscrituraLectura.LecturaArchivo_Cartelera.main(null); 

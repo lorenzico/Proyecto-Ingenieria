@@ -11,14 +11,12 @@ public class Metrica3 {
     public static void main(String[] args) {
         int contador = 1; // Cambiado a 1 para que coincida con nombres de archivo típicos
 
-        while (contador < 10) {
+        while (contador < 100) {
             String archivo = "A7Salas/Sala_" + contador + ".txt";
             File archivo2 = new File(archivo);
             if (archivo2.exists()){
 
-            } else {
-                break;
-            }
+             
 
 
             boolean sino = false;
@@ -60,6 +58,10 @@ public class Metrica3 {
             System.out.println("Error al leer el archivo.");
             e.printStackTrace();
         }
+        } else{
+            contador ++;
+        }
+        
     }
     
     }

@@ -16,8 +16,8 @@ public class EscrituraBuffer_Cartelera {
         System.out.print("Si / No: ");
         String limpiar = scanner.nextLine();
 
-        Path archivoOriginal = Paths.get("Cartelera.txt");
-        Path archivoNuevo = Paths.get("Cartelera2.txt");
+        Path archivoOriginal = Paths.get("A0Ficheros/Cartelera.txt");
+        Path archivoNuevo = Paths.get("A0Ficheros/Cartelera2.txt");
 
 
 

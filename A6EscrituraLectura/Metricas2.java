@@ -10,8 +10,8 @@ import java.io.OutputStream;
 public class Metricas2 {
     
     public static void main(String[] args) {
-        File origen = new File("Cartelera.txt");
-        File destino = new File("Cartelera.txt");
+        File origen = new File("A0Ficheros/Cartelera.txt");
+        File destino = new File("A9Descargas/Cartelera.txt");
 
         try (InputStream in = new FileInputStream(origen);
              OutputStream out = new FileOutputStream(destino)) {
@@ -29,8 +29,8 @@ public class Metricas2 {
         }
 
 
-        File origenn = new File("Cartelera2.txt");
-        File destinon = new File("Cartelera2.txt");
+        File origenn = new File("A0Ficheros/Cartelera2.txt");
+        File destinon = new File("A9Descargas/Cartelera2.txt");
 
         try (InputStream in = new FileInputStream(origenn);
              OutputStream out = new FileOutputStream(destinon)) {
