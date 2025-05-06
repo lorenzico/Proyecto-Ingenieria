@@ -11,7 +11,7 @@ public class BaneoUsuarios {
         
         // 1. Mostrar todos los usuarios
         System.out.println("\n=== LISTA DE USUARIOS ===");
-        List<String> lineas = mostrarUsuarios("A0Ficheros/Autenticacion.txt");
+        List<String> lineas = mostrarUsuarios("A0Ficheros/AutenticacionUser.txt");
         
         if (lineas.isEmpty()) {
             System.out.println("No hay usuarios registrados.");

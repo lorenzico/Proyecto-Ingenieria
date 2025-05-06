@@ -19,25 +19,45 @@ public class Login {
 
         String salto = scanner.nextLine();
 
-        System.out.print("Ingrese su email: ");
-         email = scanner.nextLine();
+        String contrasena ;
 
-        System.out.print("Ingrese su contraseña: ");
-        String contrasena = scanner.nextLine();
+        if (numero >= 1 && numero <= 3) {
+            switch (numero) {
+                case 1:
+                System.out.print("Ingrese su email: ");
+                email = scanner.nextLine();
+       
+               System.out.print("Ingrese su contraseña: ");
+                contrasena = scanner.nextLine();
 
-        if (verificarCredenciales(email, contrasena)) {
-            System.out.println("\n Inicio de sesión exitoso.");
-            if (numero == 1) {
-                A3Menu_Usuario.Menu_Usuario.main(args);
-            } else if (numero == 2) {
-                A4Menu_Dependiente.Menu_Dependiente.main(null);
-            } else {
-                A5Menu_Admin.Menu_Admin.main(null);
+
+                    verificarCredenciales(email, contrasena);
+                    break;
+                case 2:
+                System.out.print("Ingrese su email: ");
+                email = scanner.nextLine();
+       
+               System.out.print("Ingrese su contraseña: ");
+                contrasena = scanner.nextLine();
+
+
+
+                    verificarCredenciales2(email, contrasena);
+                    break;
+                case 3:
+
+                System.out.print("Ingrese su email: ");
+                email = scanner.nextLine();
+       
+               System.out.print("Ingrese su contraseña: ");
+                contrasena = scanner.nextLine();
+                    verificarCredenciales3(email, contrasena);
+                    break;
             }
-
-        
         } else {
-            System.out.println("\n Credenciales incorrectas o usuario no registrado.");
+            System.out.println("\nHas introducido un valor inválido. Por favor, introduce un número entre 1 y 3.");
+            // Volver a mostrar el menú de login sin reiniciar el programa
+            A2Identidad.Login.main(null);
         }
 
         return email;
@@ -45,14 +65,14 @@ public class Login {
 
     
 
-    private static boolean verificarCredenciales(String email, String contrasena) {
-        String archivo = "A0Ficheros/Autenticacion.txt"; // Ruta relativa al archivo
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+    private static String verificarCredenciales(String email, String contrasena) {
+        try (BufferedReader br = new BufferedReader(new FileReader("A0Ficheros/AutenticacionUser.txt"))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(";");
                 if (partes.length >= 2 && partes[0].equals(email) && partes[1].equals(contrasena)) {
-                    return true;
+                    A3Menu_Usuario.Menu_Usuario.main(null);
+
 
 
                 }
@@ -60,6 +80,49 @@ public class Login {
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
-        return false;
+        return email;
     }
+
+
+
+
+
+    private static String verificarCredenciales2(String email, String contrasena) {
+        try (BufferedReader br = new BufferedReader(new FileReader("A0Ficheros/AutenticacionDependiente.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+                if (partes.length >= 2 && partes[0].equals(email) && partes[1].equals(contrasena)) {
+                A4Menu_Dependiente.Menu_Dependiente.main(null);
+
+
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return email;
+    }
+
+
+
+
+
+    private static String verificarCredenciales3(String email, String contrasena) {
+        try (BufferedReader br = new BufferedReader(new FileReader("A0Ficheros/AutenticacionAdmin.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+                if (partes.length >= 2 && partes[0].equals(email) && partes[1].equals(contrasena)) {
+                    A5Menu_Admin.Menu_Admin.main(null);
+
+
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return email;
+    }
+
 }

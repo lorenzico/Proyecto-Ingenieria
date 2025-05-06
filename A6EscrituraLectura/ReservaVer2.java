@@ -37,6 +37,10 @@ public class ReservaVer2 {
 
                         System.out.println( "Hora: " + partes[3]);
 
+                        System.out.println( "Fila " + partes[4]);
+
+                        System.out.println( "Columna: " + partes[5]);
+
                         System.out.println("-----------------------------------------------------");
 
                     }

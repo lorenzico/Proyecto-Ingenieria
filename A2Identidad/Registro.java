@@ -44,8 +44,115 @@ public class Registro {
     private static void registrarUsuarioNormal(Scanner scanner) {
         System.out.println("\nRegistro de usuario normal");
 
-        EscrituraBuffer_Autenticacion objetoA = new EscrituraBuffer_Autenticacion();
-        objetoA.escrituraAutenticacion();
+        
+        System.out.println("\n=== Email ===");
+        System.out.print("Ingresa el Email: ");
+        String email_user = scanner.nextLine();
+
+
+        System.out.println("\n=== Contraseña ===");
+        System.out.print("Ingresa la contraseña: ");
+        String contraseña_user = scanner.nextLine();
+
+
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/AutenticacionUser.txt"))) {
+            String linea;
+            int numeroLinea = 0;
+
+            while ((linea = reader.readLine()) != null) {
+                numeroLinea ++;
+
+                String[] partes = linea.split(";");
+
+
+                for (int i = 0; i < partes.length; i++){
+                    
+                    if (email_user.equals(partes[0])){
+                        System.out.println("Ese usuario ya existe, prueba con otro.");
+                        A2Identidad.Login.main(null);
+                    }
+                }
+
+            }
+
+            
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
+            e.printStackTrace();
+        }
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/AutenticacionUser.txt", true))) {
+            writer.write(email_user);
+            writer.write(";");
+
+            writer.write(contraseña_user);
+            writer.write(";");
+
+            
+            writer.newLine(); // Nueva línea
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
+
+        System.out.println("\n=== Información del Perfil ===");
+
+        System.out.print("Genéro (M/F): ");
+        String genero = scanner.nextLine();
+
+        System.out.print("Dime tu edad: ");
+        String edad = scanner.nextLine();
+
+        System.out.print("Formato de pago: ");
+        String pago = scanner.nextLine();
+
+        System.out.print("Cual es tu situacion (Estudiante/Trabajador/Parado): ");
+        String tippo = scanner.nextLine();
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A8Usuarios/" + email_user, true))) {
+            writer.write(genero);
+            writer.write(";");
+
+            writer.write(edad);
+            writer.write(";");
+
+            writer.write(pago);
+            writer.write(";");
+
+            writer.write(tippo);
+            writer.write(";");
+            
+            writer.newLine(); // Nueva línea
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         System.out.println("\nRegistro exitoso ");
 
@@ -66,9 +173,75 @@ public class Registro {
             return;
         }
 
-        
-        EscrituraBuffer_Autenticacion objetoA = new EscrituraBuffer_Autenticacion();
-        objetoA.escrituraAutenticacion();
+
+
+        System.out.println("\n=== Email ===");
+        System.out.print("Ingresa el Email: ");
+        String email_user = scanner.nextLine();
+
+
+        System.out.println("\n=== Contraseña ===");
+        System.out.print("Ingresa la contraseña: ");
+        String contraseña_user = scanner.nextLine();
+
+
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/AutenticacionDependiente.txt"))) {
+            String linea;
+            int numeroLinea = 0;
+
+            while ((linea = reader.readLine()) != null) {
+                numeroLinea ++;
+
+                String[] partes = linea.split(";");
+
+
+                for (int i = 0; i < partes.length; i++){
+                    
+                    if (email_user.equals(partes[0])){
+                        System.out.println("Ese usuario ya existe, prueba con otro.");
+                        A2Identidad.Login.main(null);
+                    }
+                }
+
+            }
+
+            
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
+            e.printStackTrace();
+        }
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/AutenticacionDependiente.txt", true))) {
+            writer.write(email_user);
+            writer.write(";");
+
+            writer.write(contraseña_user);
+            writer.write(";");
+
+            
+            writer.newLine(); // Nueva línea
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         System.out.println("\nRegistro exitoso (simulado)");
     }
@@ -86,9 +259,67 @@ public class Registro {
             return;
         }
         
-        
-        EscrituraBuffer_Autenticacion objetoA = new EscrituraBuffer_Autenticacion();
-        objetoA.escrituraAutenticacion();
+        System.out.println("\n=== Email ===");
+        System.out.print("Ingresa el Email: ");
+        String email_user = scanner.nextLine();
+
+
+        System.out.println("\n=== Contraseña ===");
+        System.out.print("Ingresa la contraseña: ");
+        String contraseña_user = scanner.nextLine();
+
+
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/AutenticacionAdmin.txt"))) {
+            String linea;
+            int numeroLinea = 0;
+
+            while ((linea = reader.readLine()) != null) {
+                numeroLinea ++;
+
+                String[] partes = linea.split(";");
+
+
+                for (int i = 0; i < partes.length; i++){
+                    
+                    if (email_user.equals(partes[0])){
+                        System.out.println("Ese usuario ya existe, prueba con otro.");
+                        A2Identidad.Login.main(null);
+                    }
+                }
+
+            }
+
+            
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
+            e.printStackTrace();
+        }
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/AutenticacionAdmin.txt", true))) {
+            writer.write(email_user);
+            writer.write(";");
+
+            writer.write(contraseña_user);
+            writer.write(";");
+
+            
+            writer.newLine(); // Nueva línea
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
         
         System.out.println("\nRegistro exitoso (simulado)");
     }

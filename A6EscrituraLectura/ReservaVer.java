@@ -33,6 +33,12 @@ public class ReservaVer {
             writer.write(reserva[3]);
             writer.write(";");
 
+            writer.write(reserva[4]);
+            writer.write(";");
+
+            writer.write(reserva[5]);
+            writer.write(";");
+
             writer.newLine();
             
 

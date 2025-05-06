@@ -1,8 +1,12 @@
 package A6EscrituraLectura;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import A2Identidad.*;
+
 
 public class EscrituraBuffer_Autenticacion{
     public static void escrituraAutenticacion() {
@@ -16,6 +20,41 @@ public class EscrituraBuffer_Autenticacion{
         System.out.println("\n=== Contraseña ===");
         System.out.print("Ingresa la contraseña: ");
         String contraseña_user = scanner.nextLine();
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/Autenticacion.txt"))) {
+            String linea;
+            int numeroLinea = 0;
+
+            while ((linea = reader.readLine()) != null) {
+                numeroLinea ++;
+
+                String[] partes = linea.split(";");
+
+
+                for (int i = 0; i < partes.length; i++){
+                    
+                    if (email_user.equals(partes[0])){
+                        System.out.println("Ese usuario ya existe, prueba con otro.");
+                        A2Identidad.Login.main(null);
+                    }
+                }
+
+            }
+
+            
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
 
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("A0Ficheros/Autenticacion.txt", true))) {
@@ -32,6 +71,7 @@ public class EscrituraBuffer_Autenticacion{
             e.printStackTrace();
         }
 
+        
 
         System.out.println("\n=== Información del Perfil ===");
 
@@ -67,6 +107,7 @@ public class EscrituraBuffer_Autenticacion{
             e.printStackTrace();
         }
     }
+    
 }
 
 

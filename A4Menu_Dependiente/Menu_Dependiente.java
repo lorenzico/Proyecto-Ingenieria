@@ -21,7 +21,7 @@ public class Menu_Dependiente {
     
                 switch (opcion) {
                     case 1:
-                        A2Identidad.Login.main(null);
+                    A6EscrituraLectura.ReservaVer.main(null);
                         break;
                     case 2:
                         A6EscrituraLectura.LecturaArchivo_Cartelera.main(null); 
