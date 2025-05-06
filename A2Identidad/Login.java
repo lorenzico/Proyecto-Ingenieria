@@ -2,121 +2,115 @@ package A2Identidad;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Login {
-    public static String email;
+    public static String email; // Store the logged-in user's email
+    public static String role; // Store the logged-in user's role (Admin/User)
+
+    private JTextField emailField; // Declarar como atributo
+    private JPasswordField passwordField; // Declarar como atributo
+    private JComboBox<String> roleCombo; // Declarar como atributo
+    private JFrame frame; // Declarar como atributo
 
     public static void main(String[] args) {
-        // Crear y configurar la ventana
-        JFrame frame = new JFrame("Inicio de Sesión");
+        SwingUtilities.invokeLater(() -> new Login().initializeUI());
+    }
+
+    private void initializeUI() {
+        frame = new JFrame("Login"); // Inicializar frame
+        frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 350);
-        frame.setLayout(new BorderLayout(10, 10));
-        
-        // Panel principal con márgenes
+
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(6, 1, 10, 10));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        
-        // Título
-        JLabel titleLabel = new JLabel("INICIO DE SESIÓN", SwingConstants.CENTER);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JLabel titleLabel = new JLabel("LOGIN", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        
-        // Componentes para selección de tipo de usuario
-        JLabel userTypeLabel = new JLabel("Seleccione tipo de usuario:");
-        ButtonGroup userTypeGroup = new ButtonGroup();
-        JRadioButton userRadio = new JRadioButton("Usuario");
-        JRadioButton dependRadio = new JRadioButton("Dependiente");
-        JRadioButton adminRadio = new JRadioButton("Administrador");
-        userTypeGroup.add(userRadio);
-        userTypeGroup.add(dependRadio);
-        userTypeGroup.add(adminRadio);
-        
-        // Panel para los radio buttons
-        JPanel radioPanel = new JPanel(new GridLayout(1, 3));
-        radioPanel.add(userRadio);
-        radioPanel.add(dependRadio);
-        radioPanel.add(adminRadio);
-        
-        // Campos de texto
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JLabel emailLabel = new JLabel("Email:");
-        JTextField emailField = new JTextField();
-        JLabel passLabel = new JLabel("Contraseña:");
-        JPasswordField passField = new JPasswordField();
-        
-        // Botón de login
+        emailField = new JTextField(); // Inicializar emailField
+
+        JLabel passwordLabel = new JLabel("Contraseña:");
+        passwordField = new JPasswordField(); // Inicializar passwordField
+
+        JLabel roleLabel = new JLabel("Rol:");
+        roleCombo = new JComboBox<>(new String[]{"Usuario", "Admin", "Dependiente"}); // Inicializar roleCombo
+
         JButton loginButton = new JButton("Iniciar Sesión");
         loginButton.setFont(new Font("Arial", Font.BOLD, 14));
-        
-        // Acción del botón de login
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                email = emailField.getText();
-                String contrasena = new String(passField.getPassword());
-                int tipoUsuario = 1; // Por defecto usuario normal
-                
-                if (dependRadio.isSelected()) tipoUsuario = 2;
-                else if (adminRadio.isSelected()) tipoUsuario = 3;
-                
-                if (verificarCredenciales(email, contrasena)) {
-                    JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.");
-                    frame.dispose();
-                    
-                    if (tipoUsuario == 1) {
-                        A3Menu_Usuario.Menu_Usuario.main(args);
-                    } else if (tipoUsuario == 2) {
-                        A4Menu_Dependiente.Menu_Dependiente.main(null);
-                    } else {
-                        A5Menu_Admin.Menu_Admin.main(null);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(frame, 
-                        "Credenciales incorrectas o usuario no registrado.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-        
-        // Añadir componentes al panel principal
+        loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        loginButton.addActionListener(this::handleLoginButtonClick); // Reemplazado lambda con referencia a método
+
         mainPanel.add(titleLabel);
-        mainPanel.add(userTypeLabel);
-        mainPanel.add(radioPanel);
+        mainPanel.add(Box.createVerticalStrut(15));
         mainPanel.add(emailLabel);
         mainPanel.add(emailField);
-        mainPanel.add(passLabel);
-        mainPanel.add(passField);
+        mainPanel.add(Box.createVerticalStrut(10));
+        mainPanel.add(passwordLabel);
+        mainPanel.add(passwordField);
+        mainPanel.add(Box.createVerticalStrut(10));
+        mainPanel.add(roleLabel);
+        mainPanel.add(roleCombo);
+        mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(loginButton);
-        
-        // Añadir panel principal al frame
-        frame.add(mainPanel, BorderLayout.CENTER);
-        
-        // Centrar la ventana en la pantalla
+
+        frame.add(mainPanel);
         frame.setLocationRelativeTo(null);
-        
-        // Hacer visible la ventana
         frame.setVisible(true);
     }
 
-    private static boolean verificarCredenciales(String email, String contrasena) {
-        String archivo = "A0Ficheros/Autenticacion.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split(";");
-                if (partes.length >= 2 && partes[0].equals(email) && partes[1].equals(contrasena)) {
-                    return true;
+    private void handleLoginButtonClick(ActionEvent e) {
+        // Mover lógica del botón aquí
+        String enteredEmail = emailField.getText().trim();
+        String enteredPassword = new String(passwordField.getPassword()).trim();
+        String selectedRole = (String) roleCombo.getSelectedItem();
+
+        if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (authenticate(enteredEmail, enteredPassword, selectedRole)) {
+            email = enteredEmail;
+            role = selectedRole;
+
+            JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.");
+            frame.dispose();
+
+            if ("Admin".equals(role)) {
+                A4Menu_Dependiente.Menu_Dependiente.main(null); // Admin menu
+            } else if ("Dependiente".equals(role)) {
+                A4Menu_Dependiente.Menu_Dependiente.main(null); // Dependiente menu
+            } else {
+                A3Menu_Usuario.Menu_Usuario.main(null); // User menu
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "Credenciales incorrectas o rol no autorizado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static boolean authenticate(String email, String password, String role) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("A0Ficheros/Autenticacion.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length >= 3 && parts[1].equalsIgnoreCase(email) && parts[2].equals(password)) {
+                    if ("Admin".equals(role) && "Admin".equalsIgnoreCase(parts[3])) {
+                        return true; // Admin authentication
+                    } else if ("Usuario".equals(role) && "Usuario".equalsIgnoreCase(parts[3])) {
+                        return true; // User authentication
+                    } else if ("Dependiente".equals(role) && "Dependiente".equalsIgnoreCase(parts[3])) {
+                        return true; // Dependiente authentication
+                    }
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, 
-                "Error al leer el archivo: " + e.getMessage(), 
-                "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al autenticar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }

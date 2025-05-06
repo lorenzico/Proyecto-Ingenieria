@@ -53,9 +53,8 @@ public class CrearSala {
         
         // Listeners
         initBtn.addActionListener(event -> {
-            int numSala;
             try {
-                numSala = Integer.parseInt(numField.getText());
+                Integer.parseInt(numField.getText());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Número de sala inválido");
                 return;

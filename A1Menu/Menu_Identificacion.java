@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import A2Identidad.Login;
+import A2Identidad.RegistroUnico; // Ensure this import is present
 
 public class Menu_Identificacion {
 
@@ -38,7 +40,7 @@ public class Menu_Identificacion {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                A2Identidad.Login.main(args);
+                Login.main(args); // Ensure Login is correctly imported
                 frame.dispose(); // Cierra la ventana actual
             }
         });
@@ -46,7 +48,7 @@ public class Menu_Identificacion {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                A2Identidad.RegistroUnico.main(args); // Call RegistroUnico instead of Registro
+                RegistroUnico.main(args); // Ensure RegistroUnico is correctly imported
                 frame.dispose(); // Cierra la ventana actual
             }
         });

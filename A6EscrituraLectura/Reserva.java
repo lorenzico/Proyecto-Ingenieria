@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List; // Explicit import for List interface
 
 public class Reserva {
     public static String[] realizarreserva() {
@@ -52,7 +51,7 @@ public class Reserva {
         reserveBtn.setEnabled(false);
         
         // Listeners
-        movieList.addListSelectionListener(e -> {
+        movieList.addListSelectionListener(e -> { // Removed unused parameter
             if (!movieList.isSelectionEmpty()) {
                 String selected = movieList.getSelectedValue();
                 String[] parts = selected.split(" - Sala: ");

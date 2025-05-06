@@ -35,9 +35,9 @@ public class BaneoUsuarios {
         // Listeners
         userList.addListSelectionListener(e -> banBtn.setEnabled(userList.getSelectedIndex() != -1));
         
-        refreshBtn.addActionListener(event -> loadUsers(listModel, "A0Ficheros/Autenticacion.txt"));
+        refreshBtn.addActionListener(event -> loadUsers(listModel, "A0Ficheros/Autenticacion.txt")); // Removed unused parameter
         
-        banBtn.addActionListener(event -> {
+        banBtn.addActionListener(event -> { // Removed unused parameter
             String selected = userList.getSelectedValue();
             if (selected != null) {
                 String email = selected.split(" - ")[0];

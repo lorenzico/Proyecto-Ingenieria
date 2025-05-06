@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import A6EscrituraLectura.Metricas2;
+import A6EscrituraLectura.Reserva;
 
 public class Menu_Usuario {
     public static void main(String[] args) {
@@ -41,7 +43,7 @@ public class Menu_Usuario {
         reservaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                A6EscrituraLectura.ReservaVer.main(null);
+                Reserva.realizarreserva(); // Cambiado de ReservaVer a Reserva
             }
         });
         
