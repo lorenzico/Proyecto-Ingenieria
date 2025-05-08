@@ -52,6 +52,8 @@ public class BaneoUsuarios {
     private static void eliminarUsuarioPorEmail(String rutaArchivo, String emailABanear, List<String> lineas) {
         List<String> lineasActualizadas = new ArrayList<>();
         boolean encontrado = false;
+        String rutilla = "A8Usuarios/"+emailABanear;
+        File archive = new File(rutilla);
 
         for (String linea : lineas) {
             String[] partes = linea.split(";");
@@ -72,8 +74,13 @@ public class BaneoUsuarios {
             for (String linea : lineasActualizadas) {
                 writer.write(linea);
                 writer.newLine();
+
+
+
             }
             System.out.println(" Usuario con email / nombre '" + emailABanear + "' eliminado correctamente.");
+            System.out.println(rutilla);
+            archive.delete();
         } catch (IOException e) {
             System.out.println("Error al escribir en el archivo.");
             e.printStackTrace();
